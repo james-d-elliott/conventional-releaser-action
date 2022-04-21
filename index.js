@@ -30,9 +30,25 @@ async function run() {
       token: token
     };
 
+    const changelogOpts = {
+      preset: "angular"
+    };
+
+    const repository = process.env.GITHUB_REPOSITORY;
+
+    core.info(`Repository detected as ${repository}.`);
+
+    const i = repository.indexOf("/");
+    const context = {
+      owner: repository.substring(0, i),
+      repository: repository.substring(i + 1)
+    }
+
+    core.info(`Context is ${context}.`)
+
     core.info(`Attempting Conventional GitHub Release.`);
 
-    release(auth, {preset: "angular"}, function(err, responses) {
+    release(auth, changelogOpts, context, function(err, responses) {
       if (err !== null) {
         core.setFailed(`An error occurred creating the release: ${err}`);
 
@@ -46,7 +62,7 @@ async function run() {
       }
     });
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(`An exception occurred calling the release module: ${error.message}`);
   }
 }
 
