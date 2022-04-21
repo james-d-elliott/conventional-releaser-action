@@ -5,9 +5,11 @@ const release = require('conventional-github-releaser');
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    core.info(`Starting Conventional GitHub Release.`);
+    core.info(`Starting Conventional GitHub Release Action.`);
 
     const token = core.getInput('token');
+
+    core.info(`Received GitHub Token.`);
 
     if (token === undefined) {
       core.setFailed(`The GitHub Token could not be detected (from the token action input).`);
@@ -27,6 +29,8 @@ async function run() {
       type: "oauth",
       token: token
     };
+
+    core.info(`Attempting Conventional GitHub Release.`);
 
     release(auth, {preset: "angular"}, function(err, responses) {
       if (err !== null) {
