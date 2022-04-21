@@ -57592,6 +57592,7 @@ async function run() {
     }
 
     const auth = {
+      url: 'https://api.github.com/',
       type: "oauth",
       token: token
     };
