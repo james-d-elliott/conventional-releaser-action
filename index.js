@@ -7,17 +7,19 @@ async function run() {
   try {
     core.info(`Starting Conventional GitHub Release Action.`);
 
-    const token = core.getInput('token');
+    const auth = {
+      url: 'https://api.github.com/',
+      type: "oauth",
+      token: core.getInput('token')
+    };
 
-    core.info(`Received GitHub Token.`);
-
-    if (token === undefined) {
+    if (auth.token === undefined) {
       core.setFailed(`The GitHub Token could not be detected (from the token action input).`);
 
       return;
     }
 
-    const tokenLength = token.length;
+    const tokenLength = auth.token.length;
 
     if (tokenLength < 40) {
       core.setFailed(`The supplied GitHub Token (from the token action input) had a length of ${tokenLength} but it should be at least have a length of 40.`);
@@ -25,14 +27,9 @@ async function run() {
       return;
     }
 
-    const auth = {
-      url: 'https://api.github.com/',
-      type: "oauth",
-      token: token
-    };
-
     const changelogOpts = {
-      preset: "angular"
+      preset: core.getInput('preset'),
+      releaseCount: parseInt(core.getInput('release-count'))
     };
 
     const repository = process.env.GITHUB_REPOSITORY;
@@ -45,11 +42,13 @@ async function run() {
       repository: repository.substring(i + 1)
     }
 
-    core.info(`Context is ${context}.`)
+    const writerOpts = {
+      mainTemplate: core.getInput('main-template')
+    };
 
     core.info(`Attempting Conventional GitHub Release.`);
 
-    release(auth, changelogOpts, context, function(err, responses) {
+    release(auth, changelogOpts, context, {}, {}, writerOpts, function(err, responses) {
       if (err !== null) {
         core.setFailed(`An error occurred creating the release: ${err}`);
 

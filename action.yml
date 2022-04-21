@@ -7,6 +7,19 @@ inputs:
   token:
     description: 'The GitHub Token to use to perform this action'
     required: true
+    default: ''
+  preset:
+    description: 'Set the Release Count'
+    required: false
+    default: 'angular'
+  main-template:
+    description: 'Set the writer main template'
+    required: false
+    default: '{{commitGroups.[0].commits.[0].type}}{{testContext}}template'
+  release-count:
+    description: 'Set the Release Count'
+    required: false
+    default: '1'
 runs:
   using: 'node16'
   main: 'dist/index.js'
