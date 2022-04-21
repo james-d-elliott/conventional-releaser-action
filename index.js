@@ -17,8 +17,8 @@ async function run() {
 
     const tokenLength = token.length;
 
-    if (tokenLength < 255) {
-      core.setFailed(`The supplied GitHub Token (from the token action input) had a length of ${tokenLength} but it should be more than 255.`);
+    if (tokenLength < 40) {
+      core.setFailed(`The supplied GitHub Token (from the token action input) had a length of ${tokenLength} but it should be at least have a length of 40.`);
 
       return;
     }
