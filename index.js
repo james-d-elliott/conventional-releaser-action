@@ -46,7 +46,7 @@ async function run() {
 
     core.info(`Attempting Conventional GitHub Release.`);
 
-    release(auth, changelogOpts, function(err, responses) {
+    release(auth, changelogOpts, undefined, {}, undefined, undefined, function(err, responses) {
       if (err !== null) {
         core.setFailed(`An error occurred creating the release: ${err}`);
 
