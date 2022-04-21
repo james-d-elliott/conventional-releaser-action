@@ -7,18 +7,26 @@ async function run() {
   try {
     core.info(`Starting Conventional GitHub Release.`);
 
-    const auth = {
-      type: "oauth",
-      token: process.env.GITHUB_TOKEN
-    };
+    const token = core.getInput('token');
 
-    const tokenLength = auth.token.length;
-
-    if (tokenLength < 255) {
-      core.setFailed(`The supplied GitHub Token (from the GITHUB_TOKEN environment variable) had a length of ${tokenLength} but it should be more than 255.`);
+    if (token === undefined) {
+      core.setFailed(`The GitHub Token could not be detected (from the token action input).`);
 
       return;
     }
+
+    const tokenLength = token.length;
+
+    if (tokenLength < 255) {
+      core.setFailed(`The supplied GitHub Token (from the token action input) had a length of ${tokenLength} but it should be more than 255.`);
+
+      return;
+    }
+
+    const auth = {
+      type: "oauth",
+      token: token
+    };
 
     release(auth, {preset: "angular"}, function(err, responses) {
       if (err !== null) {

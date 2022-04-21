@@ -3,6 +3,10 @@ description: 'Perform a Conventional GitHub Release'
 branding:
   icon: git-commit
   color: purple
+inputs:
+  token:
+    description: 'The GitHub Token to use to perform this action'
+    required: true
 runs:
   using: 'node16'
   main: 'dist/index.js'
