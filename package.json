@@ -1,0 +1,36 @@
+{
+  "name": "conventional-releaser-action",
+  "version": "1.0.0",
+  "description": "Conventional Releaser GitHub Action",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
+    "test": "jest",
+    "all": "npm run lint && npm run prepare && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/james-d-elliott/conventional-releaser-action.git"
+  },
+  "keywords": [
+    "GitHub",
+    "Actions",
+    "JavaScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/james-d-elliott/conventional-releaser-action/issues"
+  },
+  "homepage": "https://github.com/james-d-elliott/conventional-releaser-action#readme",
+  "dependencies": {
+    "@actions/core": "1.6.0",
+    "conventional-github-releaser": "3.1.5"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "0.33.4",
+    "eslint": "8.13.0",
+    "jest": "27.5.1"
+  }
+}

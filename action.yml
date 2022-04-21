@@ -1,0 +1,5 @@
+name: 'Conventional Releaser'
+description: 'Perform a Conventional GitHub Release'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
