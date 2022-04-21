@@ -57598,6 +57598,7 @@ async function run() {
       releaseCount: parseInt(core.getInput('release-count'))
     };
 
+    /*
     const repository = process.env.GITHUB_REPOSITORY;
 
     core.info(`Repository detected as ${repository}.`);
@@ -57607,14 +57608,11 @@ async function run() {
       owner: repository.substring(0, i),
       repository: repository.substring(i + 1)
     }
-
-    const writerOpts = {
-      mainTemplate: core.getInput('main-template')
-    };
+     */
 
     core.info(`Attempting Conventional GitHub Release.`);
 
-    release(auth, changelogOpts, context, {}, {}, writerOpts, function(err, responses) {
+    release(auth, changelogOpts, function(err, responses) {
       if (err !== null) {
         core.setFailed(`An error occurred creating the release: ${err}`);
 
